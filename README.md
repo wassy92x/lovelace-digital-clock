@@ -25,6 +25,6 @@ timeFormat:
   minute: '2-digit'
 ```
 
-[license-shield]: https://img.shields.io/github/license/custom-cards/boilerplate-card.svg?style=for-the-badge
-[releases-shield]: https://img.shields.io/github/release/wassy92x/lovelace-ha-dashboard.svg?style=for-the-badge
-[releases]: https://github.com/wassy92x/lovelace-ha-dashboard/releases
+[license-shield]: https://img.shields.io/github/license/wassy92x/lovelace-digital-clock.svg?style=for-the-badge
+[releases-shield]: https://img.shields.io/github/release/wassy92x/lovelace-digital-clock.svg?style=for-the-badge
+[releases]: https://github.com/wassy92x/lovelace-digital-clock/releases
