@@ -5,7 +5,7 @@ A custom digital clock card for Home Assistant
 [![GitHub Release][releases-shield]][releases]
 [![License][license-shield]](LICENSE.md)
 
-![Image of Digital Clock Card](https://github.com/wassy92x/lovelace-ha-dashboard/blob/master/.images/digital-clock.png?raw=true)
+![Image of Digital Clock Card](https://github.com/wassy92x/lovelace-digital-clock/blob/master/.images/digital-clock.png?raw=true)
 
 ## Options
 
