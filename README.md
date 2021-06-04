@@ -1,6 +1,6 @@
 # Home Assistant Lovelace Digital Clock
 
-A custom dashboard for Home Assistant with sidebar
+A custom digital clock for Home Assistant
 
 [![GitHub Release][releases-shield]][releases]
 [![License][license-shield]](LICENSE.md)
