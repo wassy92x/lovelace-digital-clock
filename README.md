@@ -1,4 +1,4 @@
-# HA Dashboard
+# Home Assistant Lovelace Digital Clock
 
 A custom dashboard for Home Assistant with sidebar
 

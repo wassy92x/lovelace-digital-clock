@@ -1,5 +1,4 @@
 {
     "name": "Home Assistant Digital Clock",
-    "render_readme": true,
-    "filename": "dist/DigitalClock.js"
+    "render_readme": true
 }
