@@ -13,6 +13,8 @@ A custom digital clock for Home Assistant
 | dateFormat        | object  | **Optional** | Format of date                              | { weekday: 'short', day: '2-digit', month: 'short' } |
 | timeFormat        | object  | **Optional** | Format of time                              | { hour: '2-digit', minute: '2-digit' } |
 
+dateFormat and timeFormat can be every valid object, which can be passed as options to the JavaScript-Function Date.prototype.toLocaleDateString() / Date.prototype.toLocaleTimeString()
+
 # Example
 ```
 type: 'custom:digital-clock'
