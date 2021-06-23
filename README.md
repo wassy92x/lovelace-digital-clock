@@ -13,10 +13,17 @@ A custom digital clock card for Home Assistant
 | Name              | Type    | Requirement  | Description                                 | Default             |
 | ----------------- | ------- | ------------ | ------------------------------------------- | ------------------- |
 | type              | string  | **Required** | `custom:digital-clock`                      |                     |
-| dateFormat        | object  | **Optional** | Format of date                              | { weekday: 'short', day: '2-digit', month: 'short' } |
-| timeFormat        | object  | **Optional** | Format of time                              | { hour: '2-digit', minute: '2-digit' } |
+| locale            | string  | **Optional** | Locale to use for formatting. For example `fr` | your browser locale |
+| firstLineFormat &#124; timeFormat   | object &#124; string | **Optional** | Format of first line           | { hour: '2-digit', minute: '2-digit' } |
+| secondLineFormat &#124; dateFormat | object  &#124; string  | **Optional** | Format of second line        | { weekday: 'short', day: '2-digit', month: 'short' } |
 
-dateFormat and timeFormat can be every valid object, which can be passed as options to the JavaScript-Function Date.prototype.toLocaleDateString() / Date.prototype.toLocaleTimeString()
+If `firstLineFormat` respectively `secondLineFormat` is a string, it can be every format, which is valid in Luxon.
+See: [https://moment.github.io/luxon/docs/manual/formatting.html#toformat](https://moment.github.io/luxon/docs/manual/formatting.html#toformat)
+
+If `firstLineFormat` respectively `secondLineFormat` is an object, it can be every valid object, which can be passed as options to the Luxon-function `toLocalString()`.
+See: [https://moment.github.io/luxon/docs/manual/formatting.html#tolocalestring--strings-for-humans-](https://moment.github.io/luxon/docs/manual/formatting.html#tolocalestring--strings-for-humans-)
+
+If `timeFormat` is specified, it will override `firstLineFormat` and `dateFormat` will override `secondLineFormat`.
 
 # Example
 ```

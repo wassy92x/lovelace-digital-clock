@@ -9,6 +9,7 @@ import {
     PropertyValues,
     state,
 } from 'lit-element';
+import {DateTime} from 'luxon';
 
 import {CARD_VERSION} from './const';
 import IDigitalClockConfig from './IDigitalClockConfig';
@@ -30,20 +31,24 @@ console.info(
 
 @customElement('digital-clock')
 export class DigitalClock extends LitElement {
-    @state() private _date = '';
-    @state() private _time = '';
+    @state() private _firstLine = '';
+    @state() private _secondLine = '';
     @state() private _config?: IDigitalClockConfig;
     @state() private _interval = 1000;
     private _intervalId?: number;
 
     public setConfig(config: IDigitalClockConfig): void {
         this._config = config;
+        if (this._config.timeFormat)
+            this._config.firstLineFormat = this._config.timeFormat;
+        if (this._config.dateFormat)
+            this._config.secondLineFormat = this._config.dateFormat;
         if (this._config.interval !== this._interval)
             this._interval = this._config.interval ?? 1000;
     }
 
     protected shouldUpdate(changedProps: PropertyValues): boolean {
-        return changedProps.has('_date') || changedProps.has('_time') || changedProps.has('_config');
+        return changedProps.has('_firstLine') || changedProps.has('_secondLine') || changedProps.has('_config');
     }
 
     public async getCardSize(): Promise<number> {
@@ -80,13 +85,27 @@ export class DigitalClock extends LitElement {
     }
 
     private _updateDateTime(): void {
-        const dateTime = new Date();
-        const date = dateTime.toLocaleDateString([], this._config?.dateFormat ?? { weekday: 'short', day: '2-digit', month: 'short' });
-        const time = dateTime.toLocaleTimeString([], this._config?.timeFormat ?? { hour: '2-digit', minute: '2-digit' });
-        if (date !== this._date)
-            this._date = date;
-        if (time !== this._time)
-            this._time = time;
+        let dateTime = DateTime.now();
+        if (this._config?.locale)
+            dateTime = dateTime.setLocale(this._config.locale);
+
+        let firstLine: string;
+        let secondLine: string;
+
+        if (typeof this._config?.firstLineFormat === 'string')
+            firstLine = dateTime.toFormat(this._config.firstLineFormat);
+        else
+            firstLine = dateTime.toLocaleString(this._config?.firstLineFormat ?? { hour: '2-digit', minute: '2-digit' });
+
+        if (typeof this._config?.secondLineFormat === 'string')
+            secondLine = dateTime.toFormat(this._config.secondLineFormat);
+        else
+            secondLine = dateTime.toLocaleString(this._config?.secondLineFormat ?? { weekday: 'short', day: '2-digit', month: 'short' });
+
+        if (firstLine !== this._firstLine)
+            this._firstLine = firstLine;
+        if (secondLine !== this._secondLine)
+            this._secondLine = secondLine;
     }
 
     public disconnectedCallback(): void {
@@ -97,8 +116,8 @@ export class DigitalClock extends LitElement {
     protected render(): TemplateResult | void {
         return html`
             <ha-card>
-                <span class="time">${this._time}</span>
-                <span class="date">${this._date}</span>
+                <span class="first-line">${this._firstLine}</span>
+                <span class="second-line">${this._secondLine}</span>
             </ha-card>
         `;
     }
@@ -115,12 +134,12 @@ export class DigitalClock extends LitElement {
             display: block;
           }
           
-          .time {
+          .first-line {
             font-size: 2.8em;
             line-height: 1em;
           }
           
-          .date {
+          .second-line {
             font-size: 1.6em;
             line-height: 1em;
           }
