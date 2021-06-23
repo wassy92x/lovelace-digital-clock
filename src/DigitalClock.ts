@@ -38,7 +38,7 @@ export class DigitalClock extends LitElement {
     private _intervalId?: number;
 
     public setConfig(config: IDigitalClockConfig): void {
-        this._config = config;
+        this._config = { ...config };
         if (this._config.timeFormat)
             this._config.firstLineFormat = this._config.timeFormat;
         if (this._config.dateFormat)
@@ -86,8 +86,7 @@ export class DigitalClock extends LitElement {
 
     private _updateDateTime(): void {
         let dateTime = DateTime.now();
-        if (this._config?.locale)
-            dateTime = dateTime.setLocale(this._config.locale);
+        dateTime = dateTime.setLocale(this._config?.locale ?? dateTime.resolvedLocaleOpts().locale);
 
         let firstLine: string;
         let secondLine: string;
