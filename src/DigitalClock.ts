@@ -7,9 +7,10 @@ import {
     TemplateResult,
     css,
     PropertyValues,
-    state,
+    state, property,
 } from 'lit-element';
 import {DateTime} from 'luxon';
+import {HomeAssistant} from 'custom-card-helpers';
 
 import {CARD_VERSION} from './const';
 import IDigitalClockConfig from './IDigitalClockConfig';
@@ -31,6 +32,7 @@ console.info(
 
 @customElement('digital-clock')
 export class DigitalClock extends LitElement {
+    @property({attribute: false}) public hass!: HomeAssistant;
     @state() private _firstLine = '';
     @state() private _secondLine = '';
     @state() private _config?: IDigitalClockConfig;
@@ -48,7 +50,7 @@ export class DigitalClock extends LitElement {
     }
 
     protected shouldUpdate(changedProps: PropertyValues): boolean {
-        return changedProps.has('_firstLine') || changedProps.has('_secondLine') || changedProps.has('_config');
+        return changedProps.has('_firstLine') || changedProps.has('_secondLine') || changedProps.has('_config') || changedProps.has('hass');
     }
 
     public async getCardSize(): Promise<number> {
@@ -57,6 +59,7 @@ export class DigitalClock extends LitElement {
 
     protected updated(changedProperties: PropertyValues): void {
         super.updated(changedProperties);
+
         if (changedProperties.has('_interval')) {
             this._stopInterval();
             this._startInterval();
@@ -85,8 +88,9 @@ export class DigitalClock extends LitElement {
     }
 
     private _updateDateTime(): void {
-        let dateTime = DateTime.now();
-        dateTime = dateTime.setLocale(this._config?.locale ?? dateTime.resolvedLocaleOpts().locale);
+        let dateTime = DateTime.local();
+        dateTime = dateTime.setZone(this._config?.timeZone ?? this.hass?.config?.time_zone ?? dateTime.resolvedLocaleOpts().timeZone);
+        dateTime = dateTime.setLocale(this._config?.locale ?? this.hass?.locale?.language ?? dateTime.resolvedLocaleOpts().locale);
 
         let firstLine: string;
         let secondLine: string;
