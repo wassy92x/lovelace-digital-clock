@@ -87,10 +87,26 @@ export class DigitalClock extends LitElement {
         this._intervalId = undefined;
     }
 
-    private _updateDateTime(): void {
-        let dateTime = DateTime.local();
-        dateTime = dateTime.setZone(this._config?.timeZone ?? this.hass?.config?.time_zone ?? dateTime.resolvedLocaleOpts().timeZone);
-        dateTime = dateTime.setLocale(this._config?.locale ?? this.hass?.locale?.language ?? dateTime.resolvedLocaleOpts().locale);
+    private async _updateDateTime(): Promise<void> {
+        const timeZone = this._config?.timeZone ?? this.hass?.config?.time_zone;
+        const locale = this._config?.locale ?? this.hass?.locale?.language;
+
+        let dateTime: DateTime = DateTime.local();
+        /* if (!this._config?.useHATime) {
+            dateTime = DateTime.local();
+        } else {
+            dateTime = DateTime.fromSeconds(await new Promise<number>((resolve) => {
+                this.hass.connection.subscribeMessage(
+                    (msg) => resolve(parseInt((msg as any).result, 10)),
+                    {type: "render_template", template: '{{as_timestamp(now())}}'}
+                );
+            }));
+        } */
+
+        if (timeZone)
+            dateTime = dateTime.setZone(timeZone);
+        if (locale)
+            dateTime = dateTime.setLocale(locale);
 
         let firstLine: string;
         let secondLine: string;
