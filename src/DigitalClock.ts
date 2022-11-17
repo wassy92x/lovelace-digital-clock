@@ -35,6 +35,8 @@ export class DigitalClock extends LitElement {
     @property({attribute: false}) public hass!: HomeAssistant;
     @state() private _firstLine = '';
     @state() private _secondLine = '';
+    @state() private _firstLineElement?: HTMLElement;
+    @state() private _secondLineElement?: HTMLElement;  
     @state() private _config?: IDigitalClockConfig;
     @state() private _interval = 1000;
     private _intervalId?: number;
@@ -47,6 +49,11 @@ export class DigitalClock extends LitElement {
             this._config.secondLineFormat = this._config.dateFormat;
         if (this._config.interval !== this._interval)
             this._interval = this._config.interval ?? 1000;
+
+        this._firstLineElement = this._createStyledElement('first-line', this._config?.firstLineStyle || {});
+        this._firstLineElement.innerText = this._firstLine;
+        this._secondLineElement = this._createStyledElement('second-line', this._config?.secondLineStyle || {});
+        this._secondLineElement.innerText = this._secondLine;        
     }
 
     protected shouldUpdate(changedProps: PropertyValues): boolean {
@@ -71,6 +78,15 @@ export class DigitalClock extends LitElement {
     public connectedCallback(): void {
         super.connectedCallback();
         this._startInterval();
+    }
+
+    private _createStyledElement(className: string, lineStyle: { [name: string]: string }): HTMLElement {
+        const element = document.createElement('span');
+        element.className = className;
+        for (const prop in lineStyle) {
+          element.style.setProperty(prop, lineStyle[prop]);
+        }
+        return element;
     }
 
     private _startInterval(): void {
@@ -121,10 +137,18 @@ export class DigitalClock extends LitElement {
         else
             secondLine = dateTime.toLocaleString(this._config?.secondLineFormat ?? { weekday: 'short', day: '2-digit', month: 'short' });
 
-        if (firstLine !== this._firstLine)
+        if (firstLine !== this._firstLine) {
             this._firstLine = firstLine;
-        if (secondLine !== this._secondLine)
+            if (this._firstLineElement) {
+                this._firstLineElement.innerText = firstLine;
+            }
+        }
+        if (secondLine !== this._secondLine) {
             this._secondLine = secondLine;
+            if (this._secondLineElement) {
+                this._secondLineElement.innerText = secondLine;
+            }
+        }
     }
 
     public disconnectedCallback(): void {
@@ -135,8 +159,8 @@ export class DigitalClock extends LitElement {
     protected render(): TemplateResult | void {
         return html`
             <ha-card>
-                <span class="first-line">${this._firstLine}</span>
-                <span class="second-line">${this._secondLine}</span>
+              ${this._firstLineElement}
+              ${this._secondLineElement}
             </ha-card>
         `;
     }

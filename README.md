@@ -17,6 +17,8 @@ A custom digital clock card for Home Assistant
 | timeZone          | string  | **Optional** | Time zone to use. For example `Europe/Berlin` | time zone set in your home assistant profile otherwise your browser time zone |
 | firstLineFormat &#124; timeFormat   | object &#124; string | **Optional** | Format of first line           | { hour: '2-digit', minute: '2-digit' } |
 | secondLineFormat &#124; dateFormat | object  &#124; string  | **Optional** | Format of second line        | { weekday: 'short', day: '2-digit', month: 'short' } |
+| firstLineStyle | map  | **Optional** | CSS Style properties for first line        | { font-size: 4em, text-align: left } |
+| secondLineStyle | map  | **Optional** | CSS Style properties for second line        | { font-size: 4em, text-align: left } |
 
 If `firstLineFormat` respectively `secondLineFormat` is a string, it can be every format, which is valid in Luxon.
 See: [https://moment.github.io/luxon/#/formatting?id=toformat](https://moment.github.io/luxon/#/formatting?id=toformat)
@@ -36,6 +38,26 @@ dateFormat:
 timeFormat:
   hour: '2-digit'
   minute: '2-digit'
+```
+
+# Example with Styling
+```
+type: 'custom:digital-clock'
+dateFormat:
+  weekday: 'long'
+  day: '2-digit'
+  month: 'short'
+timeFormat:
+  hour: '2-digit'
+  minute: '2-digit'
+firstLineStyle:
+  font-size: 4em
+  font-family: 'Roboto Condensed, sans-serif'
+  font-weight: 400
+secondLineStyle:
+  font-size: 2em
+  font-family: 'Roboto Condensed, sans-serif'
+  font-weight: 300
 ```
 
 [license-shield]: https://img.shields.io/github/license/wassy92x/lovelace-digital-clock.svg?style=for-the-badge
