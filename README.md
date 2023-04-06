@@ -3,7 +3,7 @@
 A custom digital clock card for Home Assistant
 
 [![GitHub Release][releases-shield]][releases]
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
 [![License][license-shield]](LICENSE.md)
 
 ![Image of Digital Clock Card](https://github.com/wassy92x/lovelace-digital-clock/blob/master/.images/digital-clock.png?raw=true)
@@ -19,10 +19,10 @@ A custom digital clock card for Home Assistant
 | secondLineFormat &#124; dateFormat | object  &#124; string  | **Optional** | Format of second line        | { weekday: 'short', day: '2-digit', month: 'short' } |
 
 If `firstLineFormat` respectively `secondLineFormat` is a string, it can be every format, which is valid in Luxon.
-See: [https://moment.github.io/luxon/docs/manual/formatting.html#toformat](https://moment.github.io/luxon/docs/manual/formatting.html#toformat)
+See: [https://moment.github.io/luxon/#/formatting?id=toformat](https://moment.github.io/luxon/#/formatting?id=toformat)
 
 If `firstLineFormat` respectively `secondLineFormat` is an object, it can be every valid object, which can be passed as options to the Luxon-function `toLocalString()`.
-See: [https://moment.github.io/luxon/docs/manual/formatting.html#tolocalestring--strings-for-humans-](https://moment.github.io/luxon/docs/manual/formatting.html#tolocalestring--strings-for-humans-)
+See: [https://moment.github.io/luxon/#/formatting?id=tolocalestring-strings-for-humans](https://moment.github.io/luxon/#/formatting?id=tolocalestring-strings-for-humans)
 
 If `timeFormat` is specified, it will override `firstLineFormat` and `dateFormat` will override `secondLineFormat`.
 
