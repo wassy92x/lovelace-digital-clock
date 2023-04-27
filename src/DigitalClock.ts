@@ -1,14 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-    LitElement,
-    html,
-    customElement,
-    CSSResult,
-    TemplateResult,
-    css,
-    PropertyValues,
-    state, property,
-} from 'lit-element';
+import {css, CSSResult, html, LitElement, PropertyValues, TemplateResult} from 'lit';
+import {customElement, property, state} from 'lit/decorators';
 import {DateTime} from 'luxon';
 import {HomeAssistant} from 'custom-card-helpers';
 
@@ -40,7 +32,7 @@ export class DigitalClock extends LitElement {
     private _intervalId?: number;
 
     public setConfig(config: IDigitalClockConfig): void {
-        this._config = { ...config };
+        this._config = {...config};
         if (this._config.timeFormat)
             this._config.firstLineFormat = this._config.timeFormat;
         if (this._config.dateFormat)
@@ -114,12 +106,12 @@ export class DigitalClock extends LitElement {
         if (typeof this._config?.firstLineFormat === 'string')
             firstLine = dateTime.toFormat(this._config.firstLineFormat);
         else
-            firstLine = dateTime.toLocaleString(this._config?.firstLineFormat ?? { hour: '2-digit', minute: '2-digit' });
+            firstLine = dateTime.toLocaleString(this._config?.firstLineFormat ?? {hour: '2-digit', minute: '2-digit'});
 
         if (typeof this._config?.secondLineFormat === 'string')
             secondLine = dateTime.toFormat(this._config.secondLineFormat);
         else
-            secondLine = dateTime.toLocaleString(this._config?.secondLineFormat ?? { weekday: 'short', day: '2-digit', month: 'short' });
+            secondLine = dateTime.toLocaleString(this._config?.secondLineFormat ?? {weekday: 'short', day: '2-digit', month: 'short'});
 
         if (firstLine !== this._firstLine)
             this._firstLine = firstLine;
@@ -148,16 +140,16 @@ export class DigitalClock extends LitElement {
             font-weight: bold;
             padding: 8px 0;
           }
-          
+
           ha-card > span {
             display: block;
           }
-          
+
           .first-line {
             font-size: 2.8em;
             line-height: 1em;
           }
-          
+
           .second-line {
             font-size: 1.6em;
             line-height: 1em;
