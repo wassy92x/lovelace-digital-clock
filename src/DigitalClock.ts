@@ -27,8 +27,10 @@ export class DigitalClock extends LitElement {
     @property({attribute: false}) public hass!: HomeAssistant;
     @state() private _firstLine = '';
     @state() private _firstLineTextSize = '';
+    @state() private _firstLineLineHeight = '';
     @state() private _secondLine = '';
     @state() private _secondLineTextSize = '';
+    @state() private _secondLineLineHeight = '';
     @state() private _config?: IDigitalClockConfig;
     @state() private _interval = 1000;
     private _intervalId?: number;
@@ -43,12 +45,16 @@ export class DigitalClock extends LitElement {
             this._interval = this._config.interval ?? 1000;
         if (this._config.firstLineTextSize !== this._firstLineTextSize)
             this._firstLineTextSize = this._config.firstLineTextSize ?? '2.8em';
+        if (this._config.firstLineLineHeight !== this._firstLineLineHeight)
+            this._firstLineLineHeight = this._config.firstLineLineHeight ?? '120%';
         if (this._config.secondLineTextSize !== this._secondLineTextSize)
             this._secondLineTextSize = this._config.secondLineTextSize ?? '1.6em';
+        if (this._config.secondLineLineHeight !== this._secondLineLineHeight)
+            this._secondLineLineHeight = this._config.secondLineLineHeight ?? '250%';
     }
 
     protected shouldUpdate(changedProps: PropertyValues): boolean {
-        return changedProps.has('_firstLine') || changedProps.has('_secondLine') || changedProps.has('_firstLineTextSize') || changedProps.has('_secondLineTextSize') || changedProps.has('_config') || changedProps.has('hass');
+        return changedProps.has('_firstLine') || changedProps.has('_secondLine') || changedProps.has('_firstLineTextSize') || changedProps.has('_firstLineLineHeight') || changedProps.has('_secondLineTextSize') || changedProps.has('_secondLineLineHeight') || changedProps.has('_config') || changedProps.has('hass');
     }
 
     public async getCardSize(): Promise<number> {
@@ -153,12 +159,12 @@ export class DigitalClock extends LitElement {
 
           .first-line {
             font-size: ${this._config.firstLineTextSize};
-            line-height: 1em;
+            line-height: ${this._config.firstLineLineHeight};
           }
 
           .second-line {
             font-size: ${this._config.secondLineTextSize};
-            line-height: 1em;
+            line-height: ${this._config.secondLineLineHeight};
           }
         `;
     }
