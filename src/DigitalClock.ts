@@ -26,7 +26,9 @@ console.info(
 export class DigitalClock extends LitElement {
     @property({attribute: false}) public hass!: HomeAssistant;
     @state() private _firstLine = '';
+    @state() private _firstLineTextSize = '';
     @state() private _secondLine = '';
+    @state() private _secondLineTextSize = '';
     @state() private _config?: IDigitalClockConfig;
     @state() private _interval = 1000;
     private _intervalId?: number;
@@ -39,10 +41,14 @@ export class DigitalClock extends LitElement {
             this._config.secondLineFormat = this._config.dateFormat;
         if (this._config.interval !== this._interval)
             this._interval = this._config.interval ?? 1000;
+        if (this._config.firstLineTextSize !== this._firstLineTextSize)
+            this._firstLineTextSize = this._config.firstLineTextSize ?? '2.8';
+        if (this._config.secondLineTextSize !== this._secondLineTextSize)
+            this._secondLineTextSize = this._config.secondLineTextSize ?? '1.6';
     }
 
     protected shouldUpdate(changedProps: PropertyValues): boolean {
-        return changedProps.has('_firstLine') || changedProps.has('_secondLine') || changedProps.has('_config') || changedProps.has('hass');
+        return changedProps.has('_firstLine') || changedProps.has('_secondLine') || changedProps.has('_firstLineTextSize') || changedProps.has('_secondLineTextSize') || changedProps.has('_config') || changedProps.has('hass');
     }
 
     public async getCardSize(): Promise<number> {
