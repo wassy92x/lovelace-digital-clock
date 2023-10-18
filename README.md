@@ -11,10 +11,12 @@ A custom digital clock card for Home Assistant
 ## Options
 
 | Name              | Type    | Requirement  | Description                                 | Default             |
-| ----------------- | ------- | ------------ | ------------------------------------------- | ------------------- |
-| type              | string  | **Required** | `custom:digital-clock`                      |                     |
-| locale            | string  | **Optional** | Locale to use for formatting. For example `de` | locale set in your home assistant profile otherwise your browser locale |
-| timeZone          | string  | **Optional** | Time zone to use. For example `Europe/Berlin` | time zone set in your home assistant profile otherwise your browser time zone |
+| ------------------ | ------- | ------------ | ------------------------------------------- | ------------------- |
+| type               | string  | **Required** | `custom:digital-clock`                      |                     |
+| locale             | string  | **Optional** | Locale to use for formatting. For example `de` | locale set in your home assistant profile otherwise your browser locale |
+| timeZone           | string  | **Optional** | Time zone to use. For example `Europe/Berlin` | time zone set in your home assistant profile otherwise your browser time zone |
+| firstLineTextSize  | string  | **Optional** | Time text size in em, px or % | 2.8em |
+| secondLineTextSize | string  | **Optional** | Date text size em, px or % | 1.6em |
 | firstLineFormat &#124; timeFormat   | object &#124; string | **Optional** | Format of first line           | { hour: '2-digit', minute: '2-digit' } |
 | secondLineFormat &#124; dateFormat | object  &#124; string  | **Optional** | Format of second line        | { weekday: 'short', day: '2-digit', month: 'short' } |
 
