@@ -42,9 +42,9 @@ export class DigitalClock extends LitElement {
         if (this._config.interval !== this._interval)
             this._interval = this._config.interval ?? 1000;
         if (this._config.firstLineTextSize !== this._firstLineTextSize)
-            this._firstLineTextSize = this._config.firstLineTextSize ?? '2.8';
+            this._firstLineTextSize = this._config.firstLineTextSize ?? '2.8em';
         if (this._config.secondLineTextSize !== this._secondLineTextSize)
-            this._secondLineTextSize = this._config.secondLineTextSize ?? '1.6';
+            this._secondLineTextSize = this._config.secondLineTextSize ?? '1.6em';
     }
 
     protected shouldUpdate(changedProps: PropertyValues): boolean {
@@ -152,12 +152,12 @@ export class DigitalClock extends LitElement {
           }
 
           .first-line {
-            font-size: ${this._config.firstLineTextSize}em;
+            font-size: ${this._config.firstLineTextSize};
             line-height: 1em;
           }
 
           .second-line {
-            font-size: ${this._config.secondLineTextSize}em;
+            font-size: ${this._config.secondLineTextSize};
             line-height: 1em;
           }
         `;
