@@ -9,4 +9,8 @@ export default interface IDigitalClockConfig {
     locale?: string;
     firstLineFormat?: (LocaleOptions & DateTimeFormatOptions) | string;
     secondLineFormat?: (LocaleOptions & DateTimeFormatOptions) | string;
+    firstLineTextSize?: string;
+    firstLineLineHeight?: string;
+    secondLineTextSize?: string;
+    secondLineLineHeight?: string;
 }
